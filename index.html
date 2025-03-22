@@ -1,0 +1,167 @@
+// Código original
+const x = 10
+function dobro(x) {
+return x *2
+}
+console.log(dobro(x));
+
+// Código original
+function soma(a,b){
+return a+b
+}
+console.log(soma(2,2))
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exemplo de Alteração de Mensagens</title>
+</head>
+
+<body>
+    <h1 id="titulo">Mensagem Inicial</h1>
+    <script>
+        const parent = document.getElementById('parent');
+        const newElement = document.createElement('div');
+        newElement.textContent = 'Hello, appendChild!';
+        parent.appendChild(newElement);
+
+        const parent1 = document.getElementById('parent');
+        const newElement = document.createElement('div');
+        const referenceElement = document.getElementById('reference');
+        parent.insertBefore(newElement, referenceElement);
+
+        const parent2 = document.getElementById('parent');
+        parent.append('Text content', document.createElement('span'));
+
+        const paren3t = document.getElementById('parent');
+        parent.prepend('Prepended content', document.createElement('span'));
+
+        const element0 = document.getElementById('element');
+        element.after('Content after', document.createElement('div'));
+
+        const element1 = document.getElementById('element');
+        element.before('Content before', document.createElement('div'));
+
+        const element2 = document.getElementById('element');
+        element.innerHTML = '<p>This is new content</p>';
+
+        const element = document.getElementById('element');
+        element.outerHTML = '<div>Replaced element</div>';
+
+        const element = document.getElementById('element');
+        const clone = element.cloneNode(true); // Clona com os filhos
+        document.body.appendChild(clone);
+
+        document.write('<h1>Hello World!</h1>');
+
+        const fragment = document.createDocumentFragment();
+        for (let i = 0; i < 5; i++) {
+            const newElement = document.createElement('div');
+            newElement.textContent = `Element ${i}`;
+            fragment.appendChild(newElement);
+        }
+        document.body.appendChild(fragment);
+
+        const element = document.getElementById('element');
+        element.remove();
+
+        const parent4 = document.getElementById('parent');
+        const child = document.getElementById('child');
+        parent.removeChild(child);
+
+
+    </script>
+    <p id="paragrafo">Este é um parágrafo inicial.</p>
+
+
+
+    <script>
+        // Declarando algumas variáveis
+        let nome1 = "João";
+        let idade = 25;
+        let mensagem = `Olá, meu nome é ${nome} e tenho ${idade} anos.`;
+        // Modificando o conteúdo no console
+        console.log(mensagem); // Exibe a mensagem no console
+
+        // Modificando o conteúdo na tela (DOM)
+        document.getElementById("titulo").innerText = "Mensagem Alterada!";
+        document.getElementById("paragrafo").innerText = mensagem;
+    </script>
+</body>
+
+</html>
+
+<html>
+<body>
+    <script>
+        const button1 = document.querySelector("#botaoLampada");
+function acenderLuz() {
+  console.log("Luz acesa!");
+}
+botao.addEventListener("click", acenderLuz);
+
+button.removeEventListener("click", acenderLuz); // Funciona!
+button.removeEventListener("click", () => {}); // Não funciona (função anônima)!
+
+<button id="botaoSaudacao">Clique para saudar</button>
+
+let contador = 0;
+function mudarCor() {
+  contador++;
+  if (contador >= 3) {
+    button.removeEventListener("click", mudarCor);
+  }
+}
+<button id="botaoSaudacao">Clique para saudar</button>
+
+
+  document.getElementById("botaoSaudacao").addEventListener("click", function() {
+    console.log("Olá, Mundo!");
+  });
+
+  <button id="botaoCor">Clique para mudar a cor</button>
+
+
+  let contador1 = 0;
+  const button = document.getElementById("botaoCor");
+
+  function mudarCor() {
+    contador++;
+    botao.style.backgroundColor = botao.style.backgroundColor === "blue" ? "green" : "blue";
+    
+    if (contador >= 3) {
+      button.removeEventListener("click", mudarCor);
+    }
+  }
+
+  button.addEventListener("click", mudarCor);
+
+  
+
+  const container = document.getElementById("container");
+  const resetButton = document.getElementById("reset");
+  const numBotoes = 5; // Quantidade de botões na lista
+  const botoes = [];
+
+  function mouseOverHandler(event) {
+    event.target.style.backgroundColor = "lightblue";
+  }
+
+  // Criar botões dinamicamente
+  for (let i = 1; i <= numBotoes; i++) {
+    const Button = document.createElement("button");
+    button.textContent = `Botão ${i}`;
+    button.addEventListener("mouseover", mouseOverHandler);
+    container.appendChild(botao);
+    botoes.push(button);
+  }
+
+  // Função para remover ouvintes
+  resetButton.addEventListener("click", function () {
+    botoes.forEach(botao => botao.removeEventListener("mouseover", mouseOverHandler));
+  });
+
+    
