@@ -1,167 +1,202 @@
-// Código original
-const x = 10
-function dobro(x) {
-return x *2
-}
-console.log(dobro(x));
-
-// Código original
-function soma(a,b){
-return a+b
-}
-console.log(soma(2,2))
-
 <!DOCTYPE html>
 <html lang="pt-BR">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Exemplo de Alteração de Mensagens</title>
+    <meta charset="UTF-8" />
+    <title>Simulador de Cofre</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 40px;
+        }
+
+        #cofre-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            border: 2px solid #333;
+            padding: 20px;
+            border-radius: 8px;
+            max-width: 300px;
+        }
+
+        #display {
+            font-size: 2rem;
+            width: 200px;
+            text-align: center;
+            margin-bottom: 20px;
+            padding: 10px;
+            border: 2px solid #333;
+            border-radius: 8px;
+        }
+
+        .display-normal {
+            background-color: #ccc;
+            color: #000;
+        }
+
+        .display-green {
+            background-color: rgb(0, 241, 0);
+            color: #000000;
+        }
+
+        .display-red {
+            background-color: #f00;
+            color: #fff;
+        }
+
+        .keypad {
+            display: grid;
+            grid-template-columns: repeat(3, 60px);
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .keypad button {
+            font-size: 1.2rem;
+            padding: 15px;
+            cursor: pointer;
+            border: none;
+            border-radius: 6px;
+        }
+
+        #alarm-toggle {
+            padding: 10px;
+            font-size: 1rem;
+            cursor: pointer;
+            border: none;
+            border-radius: 6px;
+            margin-bottom: 20px;
+        }
+
+        .disabled {
+            opacity: 0.4;
+            pointer-events: none;
+        }
+    </style>
 </head>
 
 <body>
-    <h1 id="titulo">Mensagem Inicial</h1>
+
+    <div id="cofre-container">
+        <h1>Simulador de Cofre</h1>
+
+        <button id="alarm-toggle">Alarme: DESLIGADO</button>
+
+        <div id="display" class="display-normal">----</div>
+
+        <div class="keypad" id="keypad">
+            <button onclick="digitar(1)">1</button>
+            <button onclick="digitar(2)">2</button>
+            <button onclick="digitar(3)">3</button>
+            <button onclick="digitar(4)">4</button>
+            <button onclick="digitar(5)">5</button>
+            <button onclick="digitar(6)">6</button>
+            <button onclick="digitar(7)">7</button>
+            <button onclick="digitar(8)">8</button>
+            <button onclick="digitar(9)">9</button>
+            <button onclick="limpar()">Limpar</button>
+            <button onclick="digitar(0)">0</button>
+            <button onclick="cancelar()">Cancelar</button>
+            <button onclick="backspace()">Backspace</button>
+        </div>
+
+        <button onclick="verificarSenha()" id="enter-button">ENTER</button>
+
+    </div>
+
     <script>
-        const parent = document.getElementById('parent');
-        const newElement = document.createElement('div');
-        newElement.textContent = 'Hello, appendChild!';
-        parent.appendChild(newElement);
+        let senhaCorreta = gerarSenhaAleatoria();
+        let senhaDigitada = "";
+        let alarmeAtivado = false;
 
-        const parent1 = document.getElementById('parent');
-        const newElement = document.createElement('div');
-        const referenceElement = document.getElementById('reference');
-        parent.insertBefore(newElement, referenceElement);
-
-        const parent2 = document.getElementById('parent');
-        parent.append('Text content', document.createElement('span'));
-
-        const paren3t = document.getElementById('parent');
-        parent.prepend('Prepended content', document.createElement('span'));
-
-        const element0 = document.getElementById('element');
-        element.after('Content after', document.createElement('div'));
-
-        const element1 = document.getElementById('element');
-        element.before('Content before', document.createElement('div'));
-
-        const element2 = document.getElementById('element');
-        element.innerHTML = '<p>This is new content</p>';
-
-        const element = document.getElementById('element');
-        element.outerHTML = '<div>Replaced element</div>';
-
-        const element = document.getElementById('element');
-        const clone = element.cloneNode(true); // Clona com os filhos
-        document.body.appendChild(clone);
-
-        document.write('<h1>Hello World!</h1>');
-
-        const fragment = document.createDocumentFragment();
-        for (let i = 0; i < 5; i++) {
-            const newElement = document.createElement('div');
-            newElement.textContent = `Element ${i}`;
-            fragment.appendChild(newElement);
+        function gerarSenhaAleatoria() {
+            return "1234";
         }
-        document.body.appendChild(fragment);
 
-        const element = document.getElementById('element');
-        element.remove();
+        function digitar(numero) {
+            if (senhaDigitada.length < 4) {
+                senhaDigitada += numero;
+                atualizarDisplay();
+            }
+        }
 
-        const parent4 = document.getElementById('parent');
-        const child = document.getElementById('child');
-        parent.removeChild(child);
+        function atualizarDisplay() {
+            const display = document.getElementById("display");
+            display.innerText = senhaDigitada;
+        }
 
+        function limpar() {
+            senhaDigitada = "";
+            atualizarDisplay();
+            resetarDisplay();
+        }
 
-    </script>
-    <p id="paragrafo">Este é um parágrafo inicial.</p>
+        function cancelar() {
+            senhaDigitada = "";
+            atualizarDisplay();
+            resetarDisplay();
+        }
 
+        function backspace() {
+            senhaDigitada = senhaDigitada.slice(0, -1);
+            atualizarDisplay();
+        }
 
+        function resetarDisplay() {
+            const display = document.getElementById("display");
+            display.className = "display-normal"; // Reseta a cor do display após limpar ou cancelar
+        }
 
-    <script>
-        // Declarando algumas variáveis
-        let nome1 = "João";
-        let idade = 25;
-        let mensagem = `Olá, meu nome é ${nome} e tenho ${idade} anos.`;
-        // Modificando o conteúdo no console
-        console.log(mensagem); // Exibe a mensagem no console
+        function verificarSenha() {
+            const display = document.getElementById("display");
+            if (senhaDigitada === senhaCorreta) {
+                display.className = "display-green";
+            } else {
+                display.className = "display-red";
+                display.textContent = senhaDigitada;
 
-        // Modificando o conteúdo na tela (DOM)
-        document.getElementById("titulo").innerText = "Mensagem Alterada!";
-        document.getElementById("paragrafo").innerText = mensagem;
+                if (alarmeAtivado) {
+                    desativarBotoes(true);
+                }
+            }
+        }
+
+        document.getElementById("alarm-toggle").addEventListener("click", function () {
+            alarmeAtivado = !alarmeAtivado;
+            this.textContent = "Alarme: " + (alarmeAtivado ? "LIGADO" : "DESLIGADO");
+        });
+
+        function desativarBotoes(desativar) {
+            const buttons = document.querySelectorAll(".keypad button, #enter-button");
+            buttons.forEach(button => {
+                button.classList.toggle("disabled", desativar);
+            });
+        }
+
+        // Lógica para o teclado físico, que funciona independentemente do estado do alarme
+        document.addEventListener("keydown", function (event) {
+            // Verifica se a tecla pressionada é um número de 0 a 9
+            if (event.key >= "0" && event.key <= "9") {
+                digitar(event.key);
+            }
+            // Backspace (Delete)
+            else if (event.key === "Backspace" || event.key === "Delete") {
+                backspace();
+            }
+            // Enter
+            else if (event.key === "Enter") {
+                verificarSenha();
+            }
+            // Escape para limpar
+            else if (event.key === "Escape") {
+                limpar();
+            }
+        });
     </script>
 </body>
 
 </html>
-
-<html>
-<body>
-    <script>
-        const button1 = document.querySelector("#botaoLampada");
-function acenderLuz() {
-  console.log("Luz acesa!");
-}
-botao.addEventListener("click", acenderLuz);
-
-button.removeEventListener("click", acenderLuz); // Funciona!
-button.removeEventListener("click", () => {}); // Não funciona (função anônima)!
-
-<button id="botaoSaudacao">Clique para saudar</button>
-
-let contador = 0;
-function mudarCor() {
-  contador++;
-  if (contador >= 3) {
-    button.removeEventListener("click", mudarCor);
-  }
-}
-<button id="botaoSaudacao">Clique para saudar</button>
-
-
-  document.getElementById("botaoSaudacao").addEventListener("click", function() {
-    console.log("Olá, Mundo!");
-  });
-
-  <button id="botaoCor">Clique para mudar a cor</button>
-
-
-  let contador1 = 0;
-  const button = document.getElementById("botaoCor");
-
-  function mudarCor() {
-    contador++;
-    botao.style.backgroundColor = botao.style.backgroundColor === "blue" ? "green" : "blue";
-    
-    if (contador >= 3) {
-      button.removeEventListener("click", mudarCor);
-    }
-  }
-
-  button.addEventListener("click", mudarCor);
-
-  
-
-  const container = document.getElementById("container");
-  const resetButton = document.getElementById("reset");
-  const numBotoes = 5; // Quantidade de botões na lista
-  const botoes = [];
-
-  function mouseOverHandler(event) {
-    event.target.style.backgroundColor = "lightblue";
-  }
-
-  // Criar botões dinamicamente
-  for (let i = 1; i <= numBotoes; i++) {
-    const Button = document.createElement("button");
-    button.textContent = `Botão ${i}`;
-    button.addEventListener("mouseover", mouseOverHandler);
-    container.appendChild(botao);
-    botoes.push(button);
-  }
-
-  // Função para remover ouvintes
-  resetButton.addEventListener("click", function () {
-    botoes.forEach(botao => botao.removeEventListener("mouseover", mouseOverHandler));
-  });
-
-    
